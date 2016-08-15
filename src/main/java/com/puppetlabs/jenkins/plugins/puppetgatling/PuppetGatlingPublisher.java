@@ -1,6 +1,8 @@
 package com.puppetlabs.jenkins.plugins.puppetgatling;
 
 import static com.puppetlabs.jenkins.plugins.puppetgatling.Constant.*;
+
+import com.puppetlabs.jenkins.plugins.puppetgatling.gatling.GatlingReportArchiver;
 import com.puppetlabs.jenkins.plugins.puppetgatling.gatling.PuppetGatlingBuildAction;
 import com.puppetlabs.jenkins.plugins.puppetgatling.gatling.SimulationReport;
 
@@ -126,17 +128,25 @@ public class PuppetGatlingPublisher extends Recorder implements SimpleBuildStep 
      * @throws InterruptedException
      */
     private boolean getBuildAction(Run<?, ?> run, FilePath workspace) throws IOException, InterruptedException{
-        List<GatlingBuildAction> gatlingBuildActionList = run.getActions(GatlingBuildAction.class);
+//        List<GatlingBuildAction> gatlingBuildActionList = run.getActions(GatlingBuildAction.class);
+//
+//        if (gatlingBuildActionList.size() == 0){
+//            return false;
+//        }
+//        GatlingBuildAction action = gatlingBuildActionList.get(0);
 
-        if (gatlingBuildActionList.size() == 0){
+        GatlingReportArchiver archiver = new GatlingReportArchiver();
+        List<BuildSimulation> simulations = archiver.saveFullReports(run, logger, workspace);
+        if (simulations.size() == 0){
             return false;
         }
-        GatlingBuildAction action = gatlingBuildActionList.get(0);
+
 
         List<SimulationReport> simulationReportList = new ArrayList<SimulationReport>();
         Map<String, List<SimulationData>> simulationData = new HashMap<String, List<SimulationData>>();
 
-        for (BuildSimulation sim : action.getSimulations()){
+//        for (BuildSimulation sim : action.getSimulations()){
+        for (BuildSimulation sim : simulations){
 
             List<SimulationConfig> simConfig = getGatlingSimData(workspace, sim.getSimulationName());
             for (SimulationConfig sc : simConfig){
