@@ -1,0 +1,308 @@
+aio_agent_version => 1.5.2
+augeas => {
+  version => "1.4.0"
+}
+disks => {
+  sda => {
+    model => "LOGICAL VOLUME",
+    size => "931.48 GiB",
+    size_bytes => 1000171331584,
+    vendor => "HP"
+  },
+  sdb => {
+    model => "LOGICAL VOLUME",
+    size => "279.43 GiB",
+    size_bytes => 300035497984,
+    vendor => "HP"
+  }
+}
+dmi => {
+  bios => {
+    release_date => "09/01/2013",
+    vendor => "HP",
+    version => "P80"
+  },
+  chassis => {
+    type => "Rack Mount Chassis"
+  },
+  manufacturer => "HP",
+  product => {
+    name => "ProLiant DL320e Gen8 v2",
+    serial_number => "USE346L3KS",
+    uuid => "37323233-3135-5553-4533-34364C334B53"
+  }
+}
+facterversion => 3.2.0
+filesystems => xfs
+identity => {
+  gid => 0,
+  group => "root",
+  uid => 0,
+  user => "root"
+}
+is_virtual => false
+kernel => Linux
+kernelmajversion => 3.10
+kernelrelease => 3.10.0-229.el7.x86_64
+kernelversion => 3.10.0
+load_averages => {
+  15m => 0.08,
+  1m => 0.06,
+  5m => 0.03
+}
+memory => {
+  swap => {
+    available => "1000.00 MiB",
+    available_bytes => 1048571904,
+    capacity => "0%",
+    total => "1000.00 MiB",
+    total_bytes => 1048571904,
+    used => "0 bytes",
+    used_bytes => 0
+  },
+  system => {
+    available => "19.13 GiB",
+    available_bytes => 20543897600,
+    capacity => "17.62%",
+    total => "23.23 GiB",
+    total_bytes => 24938786816,
+    used => "4.09 GiB",
+    used_bytes => 4394889216
+  }
+}
+mountpoints => {
+  / => {
+    available => "275.69 GiB",
+    available_bytes => 296017620992,
+    capacity => "0.77%",
+    device => "/dev/sdb3",
+    filesystem => "xfs",
+    options => [
+      "rw",
+      "seclabel",
+      "relatime",
+      "attr2",
+      "inode64",
+      "logbsize=256k",
+      "sunit=512",
+      "swidth=512",
+      "noquota"
+    ],
+    size => "277.83 GiB",
+    size_bytes => 298312531968,
+    used => "2.14 GiB",
+    used_bytes => 2294910976
+  },
+  /boot => {
+    available => "377.93 MiB",
+    available_bytes => 396283904,
+    capacity => "23.07%",
+    device => "/dev/sdb1",
+    filesystem => "xfs",
+    options => [
+      "rw",
+      "seclabel",
+      "relatime",
+      "attr2",
+      "inode64",
+      "logbsize=256k",
+      "sunit=512",
+      "swidth=512",
+      "noquota"
+    ],
+    size => "491.25 MiB",
+    size_bytes => 515112960,
+    used => "113.32 MiB",
+    used_bytes => 118829056
+  },
+  /opt => {
+    available => "929.81 GiB",
+    available_bytes => 998371610624,
+    capacity => "0.13%",
+    device => "/dev/sda1",
+    filesystem => "xfs",
+    options => [
+      "rw",
+      "seclabel",
+      "relatime",
+      "attr2",
+      "inode64",
+      "sunit=512",
+      "swidth=512",
+      "noquota"
+    ],
+    size => "931.02 GiB",
+    size_bytes => 999676981248,
+    used => "1.22 GiB",
+    used_bytes => 1305370624
+  }
+}
+networking => {
+  dhcp => "10.0.22.10",
+  domain => "delivery.puppetlabs.net",
+  fqdn => "puppetserver-perf-sut54.delivery.puppetlabs.net",
+  hostname => "puppetserver-perf-sut54",
+  interfaces => {
+    eno1 => {
+      bindings => [
+        {
+          address => "10.0.150.204",
+          netmask => "255.255.255.0",
+          network => "10.0.150.0"
+        }
+      ],
+      bindings6 => [
+        {
+          address => "fe80::8634:97ff:fe11:d5e4",
+          netmask => "ffff:ffff:ffff:ffff::",
+          network => "fe80::"
+        }
+      ],
+      dhcp => "10.0.22.10",
+      ip => "10.0.150.204",
+      ip6 => "fe80::8634:97ff:fe11:d5e4",
+      mac => "84:34:97:11:d5:e4",
+      mtu => 1500,
+      netmask => "255.255.255.0",
+      netmask6 => "ffff:ffff:ffff:ffff::",
+      network => "10.0.150.0",
+      network6 => "fe80::"
+    },
+    eno2 => {
+      mac => "84:34:97:11:d5:e5",
+      mtu => 1500
+    },
+    lo => {
+      bindings => [
+        {
+          address => "127.0.0.1",
+          netmask => "255.0.0.0",
+          network => "127.0.0.0"
+        }
+      ],
+      bindings6 => [
+        {
+          address => "::1",
+          netmask => "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+          network => "::1"
+        }
+      ],
+      ip => "127.0.0.1",
+      ip6 => "::1",
+      mtu => 65536,
+      netmask => "255.0.0.0",
+      netmask6 => "ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff",
+      network => "127.0.0.0",
+      network6 => "::1"
+    }
+  },
+  ip => "10.0.150.204",
+  ip6 => "fe80::8634:97ff:fe11:d5e4",
+  mac => "84:34:97:11:d5:e4",
+  mtu => 1500,
+  netmask => "255.255.255.0",
+  netmask6 => "ffff:ffff:ffff:ffff::",
+  network => "10.0.150.0",
+  network6 => "fe80::",
+  primary => "eno1"
+}
+os => {
+  architecture => "x86_64",
+  family => "RedHat",
+  hardware => "x86_64",
+  name => "CentOS",
+  release => {
+    full => "7.1.1503",
+    major => "7",
+    minor => "1"
+  },
+  selinux => {
+    config_mode => "enforcing",
+    current_mode => "enforcing",
+    enabled => true,
+    enforced => true,
+    policy_version => "28"
+  }
+}
+partitions => {
+  /dev/sda1 => {
+    filesystem => "xfs",
+    mount => "/opt",
+    size => "931.48 GiB",
+    size_bytes => 1000169537536,
+    uuid => "0b22d9aa-3fff-4c9e-951f-ce8b2285d496"
+  },
+  /dev/sdb1 => {
+    filesystem => "xfs",
+    mount => "/boot",
+    size => "500.00 MiB",
+    size_bytes => 524288000,
+    uuid => "cbfea964-e3fc-4854-9bdc-d3510e6537d9"
+  },
+  /dev/sdb2 => {
+    filesystem => "swap",
+    size => "1000.00 MiB",
+    size_bytes => 1048576000,
+    uuid => "4bf4ec58-44e4-4e04-af9b-109f20ac6f8b"
+  },
+  /dev/sdb3 => {
+    filesystem => "xfs",
+    mount => "/",
+    size => "277.96 GiB",
+    size_bytes => 298461429760,
+    uuid => "17cc0541-e7ac-4284-8ab4-265b17c52bc8"
+  }
+}
+path => /opt/puppet/bin:$PATH:PATH:/opt/puppetlabs/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+processors => {
+  count => 8,
+  isa => "x86_64",
+  models => [
+    "Intel(R) Xeon(R) CPU E3-1280 v3 @ 3.60GHz",
+    "Intel(R) Xeon(R) CPU E3-1280 v3 @ 3.60GHz",
+    "Intel(R) Xeon(R) CPU E3-1280 v3 @ 3.60GHz",
+    "Intel(R) Xeon(R) CPU E3-1280 v3 @ 3.60GHz",
+    "Intel(R) Xeon(R) CPU E3-1280 v3 @ 3.60GHz",
+    "Intel(R) Xeon(R) CPU E3-1280 v3 @ 3.60GHz",
+    "Intel(R) Xeon(R) CPU E3-1280 v3 @ 3.60GHz",
+    "Intel(R) Xeon(R) CPU E3-1280 v3 @ 3.60GHz"
+  ],
+  physicalcount => 1,
+  speed => "3.60 GHz"
+}
+ruby => {
+  platform => "x86_64-linux",
+  sitedir => "/opt/puppetlabs/puppet/lib/ruby/site_ruby/2.1.0",
+  version => "2.1.9"
+}
+ssh => {
+  ecdsa => {
+    fingerprints => {
+      sha1 => "SSHFP 3 1 2d611566cdd4deae88a76872f6e3827e631da80e",
+      sha256 => "SSHFP 3 2 3b0770c56e76a84bfe7d361502878d741671936ca774b1db510112b0b654b1e2"
+    },
+    key => "AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDVB9/avHMBAg/I8BBvic9If0L2an8ZSy4ZNGwzW7zzfxqnY6AcWqkeg4U573t2m4JnBQ77k4T3PJyRGyI0jSpk="
+  },
+  ed25519 => {
+    fingerprints => {
+      sha1 => "SSHFP 4 1 8535a3b839a8d02729561516469f1b91ff69b5e4",
+      sha256 => "SSHFP 4 2 2af97ab9456c7b1fafbfa006f5bb804653f39627463761227f1e19161e9ff790"
+    },
+    key => "AAAAC3NzaC1lZDI1NTE5AAAAIDgGJOSHzsL2eFqnr1HhDvOe+noqjvrWq78lLlNlLN6Z"
+  },
+  rsa => {
+    fingerprints => {
+      sha1 => "SSHFP 1 1 0c309368646092825cb993bdbe4ded888acfd186",
+      sha256 => "SSHFP 1 2 7146765f64d7d2126c0b8c0e71221270dbae7775a4621f4c0bc0b4ed6876c2f8"
+    },
+    key => "AAAAB3NzaC1yc2EAAAADAQABAAABAQDGQHnIBDmJzuTd4iu8c5WP+Ybs8X4jJuq72QK0fI4UFbAkCwxxQLbBgYSso76lmi/1QjOgIYqpnuhCoIzhamkzs9Z+dLFnjN0AdB7uAUSmH7MYxjoznS9jNyo61q93aNNQK+sbdBBjOs8WB4GjqFyue2m21deLw9jzDdkX/9yrolroCtVWxm0+xaRUT0+xh+zvWGWs1fwAnbzOKj6WdO70m66+T439ZSK7y2m48/lPM4aN6geVWJMXKs9YxoolFFjQogteG4XQtCShnGm4QZbKAP7fAGQ4X4iJuZLIiMQA4otxwl6wI7aWYTi4Zz9xipYww09BxzF3/RTm9J5glpPh"
+  }
+}
+system_uptime => {
+  days => 5,
+  hours => 141,
+  seconds => 508941,
+  uptime => "5 days"
+}
+timezone => PDT
+virtual => physical
