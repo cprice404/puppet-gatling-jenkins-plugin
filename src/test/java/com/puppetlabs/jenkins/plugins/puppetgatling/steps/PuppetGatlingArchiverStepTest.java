@@ -26,12 +26,11 @@ public class PuppetGatlingArchiverStepTest extends Assert {
     public void archive() throws Exception {
         // job setup
         WorkflowJob foo = j.jenkins.createProject(WorkflowJob.class, "foo");
-        String sampleResultDir = new File(RESOURCES_DIR, "gatling-results-1470844250439").getAbsolutePath();
+        String sampleWorkspaceDir = new File(RESOURCES_DIR, "workspace").getAbsolutePath();
         foo.setDefinition(new CpsFlowDefinition(StringUtils.join(Arrays.asList(
                 "node {",
                 "  sh 'pwd'",
-                "  sh 'mkdir results'",
-                "  sh 'cp -r " + sampleResultDir + " results'",
+                "  sh 'cp -r " + sampleWorkspaceDir + "/* .'",
                 "  sh 'ls -l'",
                 "  puppetGatlingArchive()",
                 "}"), "\n")));
