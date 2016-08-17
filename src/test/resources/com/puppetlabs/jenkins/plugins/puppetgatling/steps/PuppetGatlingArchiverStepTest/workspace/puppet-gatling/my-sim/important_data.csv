@@ -1,6 +1,2 @@
 gatling-puppet-load-test,373de933ebc575b96f01db8e2e809550cbf07c98
-beaker-version,"beaker (2.48.1)
-beaker-answers (0.9.0)
-beaker-hiera (0.1.1)
-beaker-hostgenerator (0.3.2)
-beaker-pe (0.8.0)"
+beaker-version,"beaker (2.48.1)"
