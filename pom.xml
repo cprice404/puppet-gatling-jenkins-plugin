@@ -40,6 +40,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.mozilla</groupId>
+            <artifactId>rhino</artifactId>
+            <version>1.7.7.1</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.jenkins-ci.plugins.workflow</groupId>
             <artifactId>workflow-step-api</artifactId>
             <version>1.14</version>

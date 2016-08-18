@@ -35,6 +35,8 @@ import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Publisher;
 import hudson.tasks.Recorder;
+import sun.org.mozilla.javascript.Context;
+import sun.org.mozilla.javascript.Scriptable;
 
 import javax.annotation.Nonnull;
 import javax.script.ScriptEngine;
@@ -193,14 +195,26 @@ public class PuppetGatlingPublisher extends Recorder implements SimpleBuildStep 
         //  up and running with Gatling 2.0.
         Map<String, List<SimulationData>> groupDict = new HashMap<String, List<SimulationData>>();
 
-        ScriptEngineManager manager = new ScriptEngineManager();
-        ScriptEngine engine = manager.getEngineByName("javascript");
+//        ScriptEngineManager manager = new ScriptEngineManager();
+//        ScriptEngine engine = manager.getEngineByName("javascript");
+//        try {
+//            engine.eval(new InputStreamReader(statsJsFilePath.read()));
+//        } catch (ScriptException e) {
+//            throw new IllegalStateException("Error evaluating stats.js file", e);
+//        }
+//        Map stats = (Map) engine.get("stats");
+        Context cx = Context.enter();
+        Map stats;
         try {
-            engine.eval(new InputStreamReader(statsJsFilePath.read()));
-        } catch (ScriptException e) {
-            throw new IllegalStateException("Error evaluating stats.js file", e);
+            cx.setLanguageVersion(Context.VERSION_1_8);
+            Scriptable scope = cx.initStandardObjects();
+            Object result = cx.evaluateReader(scope, new InputStreamReader(statsJsFilePath.read()),
+                    "stats.js", 1, null);
+            stats = (Map) scope.get("stats", scope);
+
+        } finally {
+            Context.exit();
         }
-        Map stats = (Map) engine.get("stats");
 
 //        throw new IllegalStateException("not yet implemented.");
 
