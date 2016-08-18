@@ -37,6 +37,7 @@ public class GatlingReportArchiver {
         }
 
         List<FilePath> reportsToArchive = selectReports(build, logger, reportFolders);
+        logger.println("Found " + reportsToArchive.size() + " reports to archive.");
 
 
         // If the most recent report has already been archived, there's nothing else to do
@@ -87,8 +88,14 @@ public class GatlingReportArchiver {
         for (FilePath reportFolder : reportFolders) {
             long reportLastMod = reportFolder.lastModified();
             if (reportLastMod > buildStartTime) {
-                logger.println("Adding report '" + reportFolder.getName() + "'");
+                logger.println("Adding report '" + reportFolder.getName() +
+                        "' because mtime '" + reportLastMod +
+                        "' is newer than the build start time '" + buildStartTime + "'");
                 reportsFromThisBuild.add(reportFolder);
+            } else {
+                logger.println("Not adding report '" + reportFolder.getName() +
+                        "' because mtime '" + reportLastMod +
+                        "' is older than the build start time '" + buildStartTime + "'");
             }
         }
         return reportsFromThisBuild;

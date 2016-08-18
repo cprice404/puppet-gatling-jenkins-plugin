@@ -42,6 +42,7 @@ node {
     sh 'pwd'
     echo 'hi'
     sh 'rm -rf ./simulation-runner/results/*'
+    sh 'sleep 1'
     sh 'cp -r /home/cprice/work/puppet-server/git/puppet-gatling-jenkins-plugin/src/test/resources/com/puppetlabs/jenkins/plugins/puppetgatling/steps/PuppetGatlingArchiverStepTest/workspace/* .'
     puppetGatlingArchive()
 }

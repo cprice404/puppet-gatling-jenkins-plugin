@@ -144,7 +144,7 @@ public class PuppetGatlingPublisher extends Recorder implements SimpleBuildStep 
 //        GatlingBuildAction action = gatlingBuildActionList.get(0);
 
         GatlingReportArchiver archiver = new GatlingReportArchiver();
-        List<BuildSimulation> simulations = archiver.saveFullReports(run, logger, workspace);
+        List<BuildSimulation> simulations = archiver.saveFullReports(run, this.logger, workspace);
         if (simulations.size() == 0){
             return false;
         }
@@ -158,13 +158,13 @@ public class PuppetGatlingPublisher extends Recorder implements SimpleBuildStep 
 
             List<SimulationConfig> simConfig = getGatlingSimData(workspace, sim.getSimulationName());
             for (SimulationConfig sc : simConfig){
-                logger.println("[PuppetGatling] - Here are the Gatling Simulation Results for " + sim.getSimulationName() + ": " + sc.getSimulationName() + ", "
+                this.logger.println("[PuppetGatling] - Here are the Gatling Simulation Results for " + sim.getSimulationName() + ": " + sc.getSimulationName() + ", "
                         + sc.getNumberInstances() + ", " + sc.getNumberRepetitions());
             }
 
             FilePath statsJs = new FilePath(sim.getSimulationDirectory(), "js/stats.js");
 
-            logger.println("[PuppetGatling] - The stats javascript file is: " + statsJs);
+            this.logger.println("[PuppetGatling] - The stats javascript file is: " + statsJs);
 
             // new hash with data ready to be calculated
             // This could be where I pass in the appropriate SimulationConfig data structure
