@@ -35,13 +35,15 @@ import hudson.tasks.BuildStepDescriptor;
 import hudson.tasks.BuildStepMonitor;
 import hudson.tasks.Publisher;
 import hudson.tasks.Recorder;
-import sun.org.mozilla.javascript.Context;
-import sun.org.mozilla.javascript.Scriptable;
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Scriptable;
+//import sun.org.mozilla.javascript.Context;
+//import sun.org.mozilla.javascript.Scriptable;
 
 import javax.annotation.Nonnull;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
+//import javax.script.ScriptEngine;
+//import javax.script.ScriptEngineManager;
+//import javax.script.ScriptException;
 
 /**
  * <h2>Puppet Gatling Publisher</h2>
