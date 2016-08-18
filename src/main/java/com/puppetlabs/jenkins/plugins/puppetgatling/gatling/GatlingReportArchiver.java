@@ -52,7 +52,7 @@ public class GatlingReportArchiver {
             boolean mkdirResult = allSimulationsDirectory.mkdir();
             if (! mkdirResult) {
                 logger.println("Could not create simulations archive directory '" + allSimulationsDirectory + "'");
-                return Collections.emptyList();
+//                return Collections.emptyList();
             }
         }
 
@@ -64,7 +64,7 @@ public class GatlingReportArchiver {
             boolean mkdirResult = simulationDirectory.mkdir();
             if (! mkdirResult) {
                 logger.println("Could not create simulation archive directory '" + simulationDirectory + "'");
-                return Collections.emptyList();
+//                return Collections.emptyList();
             }
 
             FilePath reportDirectory = new FilePath(simulationDirectory);

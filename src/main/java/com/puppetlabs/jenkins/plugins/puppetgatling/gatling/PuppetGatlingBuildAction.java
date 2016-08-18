@@ -18,15 +18,10 @@ public class PuppetGatlingBuildAction implements Action, SimpleBuildStep.LastBui
 	
 	private final Run<?, ?> run;
 	private final List<SimulationReport> simulationReportList;
-	private final List<PuppetGatlingProjectAction> projectActions;
-	
+
 	public PuppetGatlingBuildAction(Run<?, ?> run, List<SimulationReport> simulationReportList){
 		this.run = run;
 		this.simulationReportList = simulationReportList;
-
-		List<PuppetGatlingProjectAction> projectActions = new ArrayList<>();
-		projectActions.add(new PuppetGatlingProjectAction(run.getParent()));
-		this.projectActions = projectActions;
 	}
 	
 	public Run<?, ?> getRun(){
@@ -51,6 +46,8 @@ public class PuppetGatlingBuildAction implements Action, SimpleBuildStep.LastBui
 
 	@Override
 	public Collection<? extends Action> getProjectActions() {
+		List<PuppetGatlingProjectAction> projectActions = new ArrayList<>();
+		projectActions.add(new PuppetGatlingProjectAction(run.getParent()));
 		return projectActions;
 	}
 }
