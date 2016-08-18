@@ -177,7 +177,7 @@ public class PuppetGatlingPublisher extends Recorder implements SimpleBuildStep 
         }
 
         PuppetGatlingBuildAction customAction =
-                new PuppetGatlingBuildAction(run, simulationReportList);
+                new PuppetGatlingBuildAction(run, simulations, simulationReportList);
         run.addAction(customAction);
         return true;
     }
