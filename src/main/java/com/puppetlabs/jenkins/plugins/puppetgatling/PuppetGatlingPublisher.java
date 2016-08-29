@@ -1,9 +1,8 @@
 package com.puppetlabs.jenkins.plugins.puppetgatling;
 
 import static com.puppetlabs.jenkins.plugins.puppetgatling.Constant.*;
-import com.puppetlabs.jenkins.plugins.puppetgatling.gatling.GatlingReportArchiver;
-import com.puppetlabs.jenkins.plugins.puppetgatling.gatling.PuppetGatlingBuildAction;
-import com.puppetlabs.jenkins.plugins.puppetgatling.gatling.SimulationReport;
+
+import com.puppetlabs.jenkins.plugins.puppetgatling.gatling.*;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -153,16 +152,18 @@ public class PuppetGatlingPublisher extends Recorder implements SimpleBuildStep 
             // so it can be added the Map simulationData
             simulationData = getGroupCalculations(statsJs);
 
+            SimulationMetrics metrics = new SimulationMetrics(run, logger, workspace, sim.getSimulationName());
+
             SimulationReport simulationReport = generateSimulationReport(new SimulationReport(),
-                    simulationData, workspace, sim.getSimulationName(), simConfig);
+                    simulationData, workspace, sim.getSimulationName(), simConfig,
+                    metrics);
             simulationReportList.add(simulationReport);
         }
 
-        PuppetGatlingBuildMetrics metrics = new PuppetGatlingBuildMetrics(run, logger, workspace);
+
 
         PuppetGatlingBuildAction customAction =
-                new PuppetGatlingBuildAction(run, simulations, simulationReportList,
-                        metrics);
+                new PuppetGatlingBuildAction(run, simulations, simulationReportList);
         run.addAction(customAction);
         return true;
     }
@@ -290,10 +291,14 @@ public class PuppetGatlingPublisher extends Recorder implements SimpleBuildStep 
      * @param workspace - workspace path
      * @param simID - Unique simulation ID
      * @param simConfig  - List of given configs for the whole simulation
+     * @param metrics
      * @return a new simulation report
      * @throws IOException
      */
-    private SimulationReport generateSimulationReport(SimulationReport simReport, Map<String, NodeSimulationData> simulationData, FilePath workspace, String simID, List<SimulationConfig> simConfig) throws IOException, InterruptedException {
+    private SimulationReport generateSimulationReport(
+            SimulationReport simReport, Map<String, NodeSimulationData> simulationData,
+            FilePath workspace, String simID, List<SimulationConfig> simConfig,
+            SimulationMetrics metrics) throws IOException, InterruptedException {
         logger.println("[PuppetGatling] - Generating simulation report data...");
         FilePath osData = new FilePath(workspace, "puppet-gatling/" + simID + "/important_data.csv");
         LineIterator it = IOUtils.lineIterator(osData.read(), "UTF-8");
@@ -349,6 +354,8 @@ public class PuppetGatlingPublisher extends Recorder implements SimpleBuildStep 
         simReport = calculateDataPerNode(simReport);
 
         simReport = calculateDataPerSimulation(simReport);
+
+        simReport.setMetrics(metrics);
 
         return simReport;
     }

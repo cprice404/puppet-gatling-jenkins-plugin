@@ -1,4 +1,6 @@
-package com.puppetlabs.jenkins.plugins.puppetgatling;
+package com.puppetlabs.jenkins.plugins.puppetgatling.gatling;
+
+import com.puppetlabs.jenkins.plugins.puppetgatling.gatling.SimulationData;
 
 import java.util.List;
 

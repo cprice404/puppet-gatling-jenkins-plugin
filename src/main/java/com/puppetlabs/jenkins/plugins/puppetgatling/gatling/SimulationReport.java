@@ -1,6 +1,8 @@
 package com.puppetlabs.jenkins.plugins.puppetgatling.gatling;
 
-import com.puppetlabs.jenkins.plugins.puppetgatling.*;
+import com.puppetlabs.jenkins.plugins.puppetgatling.SimulationMetrics;
+import com.puppetlabs.jenkins.plugins.puppetgatling.chart.Graph;
+
 import java.util.*;
 
 /**
@@ -30,6 +32,7 @@ public class SimulationReport {
     private Map<String, NodeSimulationData> nodeSimulationData;
 
     private Map<String, Map<String, Long>> nodeMeanResponseTimes;
+    private SimulationMetrics metrics;
 
     public Long getOtherResponseTime(){
         return (this.totalMeanAgentRunTime - (this.totalMeanCatalogResponseTime + this.totalReportResponseTime));
@@ -161,5 +164,13 @@ public class SimulationReport {
 
     public void setNodeMeanResponseTimes(Map<String, Map<String, Long>> nodeMeanResponseTimes){
         this.nodeMeanResponseTimes = nodeMeanResponseTimes;
+    }
+
+    public SimulationMetrics getMetrics() {
+        return this.metrics;
+    }
+
+    public void setMetrics(SimulationMetrics metrics) {
+        this.metrics = metrics;
     }
 }

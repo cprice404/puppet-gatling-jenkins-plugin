@@ -1,19 +1,17 @@
-package com.puppetlabs.jenkins.plugins.puppetgatling.gatling;
+package com.puppetlabs.jenkins.plugins.puppetgatling;
 
 import static com.puppetlabs.jenkins.plugins.puppetgatling.Constant.*;
 
 import java.util.*;
 
-import com.puppetlabs.jenkins.plugins.puppetgatling.PuppetGatlingBuildMetrics;
+import com.puppetlabs.jenkins.plugins.puppetgatling.SimulationMetrics;
 import com.puppetlabs.jenkins.plugins.puppetgatling.PuppetGatlingProjectAction;
 import com.puppetlabs.jenkins.plugins.puppetgatling.chart.Graph;
-import com.puppetlabs.jenkins.plugins.puppetgatling.chart.RawDataGraph;
+import com.puppetlabs.jenkins.plugins.puppetgatling.gatling.ReportRenderer;
+import com.puppetlabs.jenkins.plugins.puppetgatling.gatling.SimulationReport;
 import hudson.model.Action;
 import hudson.model.Run;
 import io.gatling.jenkins.BuildSimulation;
-import io.gatling.jenkins.chart.Point;
-import io.gatling.jenkins.chart.Serie;
-import io.gatling.jenkins.chart.SerieName;
 import jenkins.tasks.SimpleBuildStep;
 
 /**
@@ -25,14 +23,12 @@ public class PuppetGatlingBuildAction implements Action, SimpleBuildStep.LastBui
 	private final Run<?, ?> run;
 	private final List<SimulationReport> simulationReportList;
 	private final List<BuildSimulation> sims;
-	private PuppetGatlingBuildMetrics metrics;
 
 	public PuppetGatlingBuildAction(Run<?, ?> run, List<BuildSimulation> sims,
-									List<SimulationReport> simulationReportList, PuppetGatlingBuildMetrics metrics){
+									List<SimulationReport> simulationReportList){
 		this.run = run;
 		this.sims = sims;
 		this.simulationReportList = simulationReportList;
-		this.metrics = metrics;
 	}
 	
 	public Run<?, ?> getRun(){
@@ -85,10 +81,6 @@ public class PuppetGatlingBuildAction implements Action, SimpleBuildStep.LastBui
 				toString();
 	}
 
-	public Graph<Long> getMemoryUsage() {
-		return metrics.getMemoryUsage();
-	}
-
 	private BuildSimulation getSimulation(String simulationName) {
 		// this isn't the most efficient implementation in the world :)
 		for (BuildSimulation sim : this.getSimulations()) {
@@ -97,10 +89,6 @@ public class PuppetGatlingBuildAction implements Action, SimpleBuildStep.LastBui
 			}
 		}
 		return null;
-	}
-
-	private PuppetGatlingBuildMetrics getMetrics() {
-		return this.metrics;
 	}
 
 	@Override
