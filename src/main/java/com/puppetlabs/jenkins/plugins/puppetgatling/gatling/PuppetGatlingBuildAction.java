@@ -4,6 +4,7 @@ import static com.puppetlabs.jenkins.plugins.puppetgatling.Constant.*;
 
 import java.util.*;
 
+import com.puppetlabs.jenkins.plugins.puppetgatling.PuppetGatlingBuildMetrics;
 import com.puppetlabs.jenkins.plugins.puppetgatling.PuppetGatlingProjectAction;
 import com.puppetlabs.jenkins.plugins.puppetgatling.chart.Graph;
 import com.puppetlabs.jenkins.plugins.puppetgatling.chart.RawDataGraph;
@@ -21,18 +22,17 @@ import jenkins.tasks.SimpleBuildStep;
  * @author Brian Cain
  */
 public class PuppetGatlingBuildAction implements Action, SimpleBuildStep.LastBuildAction {
-
-	private static final int MAX_MEMORY_DATA_POINTS_TO_DISPLAY = 40;
-
 	private final Run<?, ?> run;
 	private final List<SimulationReport> simulationReportList;
 	private final List<BuildSimulation> sims;
+	private PuppetGatlingBuildMetrics metrics;
 
 	public PuppetGatlingBuildAction(Run<?, ?> run, List<BuildSimulation> sims,
-									List<SimulationReport> simulationReportList){
+									List<SimulationReport> simulationReportList, PuppetGatlingBuildMetrics metrics){
 		this.run = run;
 		this.sims = sims;
 		this.simulationReportList = simulationReportList;
+		this.metrics = metrics;
 	}
 	
 	public Run<?, ?> getRun(){
@@ -86,19 +86,7 @@ public class PuppetGatlingBuildAction implements Action, SimpleBuildStep.LastBui
 	}
 
 	public Graph<Long> getMemoryUsage() {
-		if (false) {
-			List<Point<Integer, Long>> memoryData = new ArrayList<>();
-			SerieName memSeriesName = new SerieName("memory");
-			for (int i = 0; i < 1000; i++) {
-				memoryData.add(new Point<Integer, Long>(i, (long) (2000 + (-100 + (Math.random() * 200)))));
-			}
-			Map<SerieName, Serie<Integer, Long>> fakeData = new TreeMap<>();
-			fakeData.put(memSeriesName, RawDataGraph.filterDataToSeries(memoryData, MAX_MEMORY_DATA_POINTS_TO_DISPLAY));
-
-			return new RawDataGraph<Long>(fakeData);
-		} else {
-			return null;
-		}
+		return metrics.getMemoryUsage();
 	}
 
 	private BuildSimulation getSimulation(String simulationName) {
@@ -109,6 +97,10 @@ public class PuppetGatlingBuildAction implements Action, SimpleBuildStep.LastBui
 			}
 		}
 		return null;
+	}
+
+	private PuppetGatlingBuildMetrics getMetrics() {
+		return this.metrics;
 	}
 
 	@Override
