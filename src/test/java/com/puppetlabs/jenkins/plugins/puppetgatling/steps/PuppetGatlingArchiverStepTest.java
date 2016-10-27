@@ -50,6 +50,26 @@ public class PuppetGatlingArchiverStepTest extends Assert {
                 1, buildActions.size());
         PuppetGatlingBuildAction pgba = buildActions.get(0);
 
+//        System.out.println("JENKINS LOG:" + JenkinsRule.getLog(b));
+//        System.out.println("BUILD ROOT DIR IS:" + b.getRootDir());
+//        System.out.println("Contents: ");
+//        for (String f : b.getRootDir().list()) {
+//            System.out.println("\t" + f);
+//        }
+//        System.out.println("SIMULATIONS DIR");
+//        for (String f : new File(b.getRootDir(), "simulations/my-sim-1470844250439").list()) {
+//            System.out.println("\t" + f);
+//        }
+
+        String simDir = "simulations/my-sim-1470844250439";
+        File origSimulationLog = new File(b.getRootDir(), simDir + "/simulation.log");
+        File compressedSimulationLog = new File(b.getRootDir(), simDir + "/simulation.log.gz");
+
+        assertFalse("Original simulation log file '" + origSimulationLog + "' should not exist",
+                origSimulationLog.exists());
+        assertTrue("Compressed simulation log file '" + origSimulationLog + "' should exist",
+                compressedSimulationLog.exists());
+
         assertEquals("/plugin/puppet-gatling-jenkins-plugin/img/puppet.png", pgba.getIconFileName());
         assertEquals("Puppet Gatling", pgba.getDisplayName());
         assertEquals("puppet-gatling", pgba.getUrlName());

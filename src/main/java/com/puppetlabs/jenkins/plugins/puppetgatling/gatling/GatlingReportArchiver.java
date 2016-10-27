@@ -6,10 +6,12 @@ import io.gatling.jenkins.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.zip.GZIPOutputStream;
 
 /**
  * NOTE: this class consists almost entirely of code copy/pasted out of GatlingPublisher,
@@ -69,7 +71,23 @@ public class GatlingReportArchiver {
 
             FilePath reportDirectory = new FilePath(simulationDirectory);
 
+            FilePath simulationLogFile = reportToArchive.child("simulation.log");
+            System.out.println("SIMULATION LOG FILE: " + simulationLogFile);
+            System.out.println("\texists?:" + simulationLogFile.exists());
+
+            gzipFilePath(simulationLogFile);
+
+            System.out.println("REPORT DIR CONTENTS:");
+            for (FilePath f : reportToArchive.list()) {
+                System.out.println("\t" + f);
+            }
+
+
             reportToArchive.copyRecursiveTo(reportDirectory);
+
+            System.out.println("Copying report from '" + reportToArchive + "' to '" + reportDirectory + "'");
+
+            // XXXX
 
             io.gatling.jenkins.SimulationReport report = new io.gatling.jenkins.SimulationReport(reportDirectory, simulation);
             report.readStatsFile();
@@ -100,4 +118,27 @@ public class GatlingReportArchiver {
         }
         return reportsFromThisBuild;
     }
+
+    private void gzipFilePath(FilePath filePath) throws IOException, InterruptedException {
+        byte[] buffer = new byte[1024 * 1024];
+
+        FilePath outFilePath = filePath.getParent().child(filePath.getName() + ".gz");
+        // TODO: use logger
+        System.out.println("Compressing '" + filePath + "' to '" + outFilePath + "'");
+
+        GZIPOutputStream outStream = new GZIPOutputStream(outFilePath.write());
+        InputStream inStream = filePath.read();
+
+        int len;
+        while ((len = inStream.read(buffer)) > 0) {
+            outStream.write(buffer, 0, len);
+        }
+        inStream.close();
+        outStream.finish();
+        outStream.close();
+        // TODO: use logger
+        System.out.println("Compression successful, deleting original file.");
+        filePath.delete();
+    }
+
 }
